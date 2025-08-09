@@ -36,6 +36,7 @@ def get_genres(movie):
         genre.append(i['id'])
     return genre
 
+
 matrix = get_movie(603)
 genres = get_genres(matrix)
 print(find_movies(genres))
