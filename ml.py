@@ -9,6 +9,9 @@ from ast import literal_eval
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 import requests
+from flask import Flask, jsonify
+
+app = Flask(__name__)
 
 reqheaders = {
     "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyNDI0NGMxZDU3MDBkMDFhMjU0YTIxMTNiNWJhZTYxOCIsIm5iZiI6MTc1NDQ3MjUzNC43Mjk5OTk4LCJzdWIiOiI2ODkzMjA1NmQxOGI5OWEzYjVmM2YyMjIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.4jecF26Vd1wII79cLjnB4DcuKSf72MEhXBr51pkWRfc"
@@ -32,6 +35,7 @@ cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix) #Finds similar overvi
 
 indices = pd.Series(df_movie.index, index=df_movie['title']).drop_duplicates() #Makes it easy to look up an id using the title of movie
 
+@app.route('/recommend/<movie>')
 def recommendations(movie):
     index = indices[movie]
 
@@ -43,21 +47,28 @@ def recommendations(movie):
     for i in scores:
         df_index.append(i[0])
 
-    return df_movie['title'].iloc[df_index]
+    movies = list()
+    for index, title in df_movie['title'].iloc[df_index].items():
+        movies.append({index: title})
 
+    return movies
+
+@app.route('/search/<movie>')
 def search_movie(movie):
     try:
         movie = str(movie)
     except Exception as e:
-        print('Movie entered not a string' + e)
-        return None
+        print('Movie entered not a string', e)
+        return jsonify({'error': str(e)})
     params = {"query" : movie}
     try:
         response = session.get(url="https://api.themoviedb.org/3/search/movie", headers=reqheaders, params=params, timeout=10)
-        return response.json()['results']
+        return jsonify(response.json()['results'])
     except Exception as e:
         print(e)
-        return None
-        
+        return jsonify({'error': str(e)})
 
-print(search_movie('Jack Reacher'))
+
+if __name__ == '__main__':
+    app.run()
+
