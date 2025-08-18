@@ -10,8 +10,10 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 import requests
 from flask import Flask, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 reqheaders = {
     "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyNDI0NGMxZDU3MDBkMDFhMjU0YTIxMTNiNWJhZTYxOCIsIm5iZiI6MTc1NDQ3MjUzNC43Mjk5OTk4LCJzdWIiOiI2ODkzMjA1NmQxOGI5OWEzYjVmM2YyMjIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.4jecF26Vd1wII79cLjnB4DcuKSf72MEhXBr51pkWRfc"
@@ -25,7 +27,7 @@ retries = Retry(
 )
 session.mount("https://", HTTPAdapter(max_retries=retries))
 
-df_movie = pd.read_csv('/root/movie/tmdb_5000_movies.csv')
+df_movie = pd.read_csv('/root/movie/backend/tmdb_5000_movies.csv')
 
 tfidf = TfidfVectorizer(stop_words='english') #Remove stop words
 df_movie['overview'] = df_movie['overview'].fillna('')
@@ -51,7 +53,7 @@ def recommendations(movie):
     for index, title in df_movie['title'].iloc[df_index].items():
         movies.append({index: title})
 
-    return movies
+    return jsonify(movies)
 
 @app.route('/search/<movie>')
 def search_movie(movie):
