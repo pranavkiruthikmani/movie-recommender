@@ -2,7 +2,7 @@ body {
   background-color: #3E0703;
 }
 
-button {
+.submit-button {
   padding: 17px 40px;
   border-radius: 50px;
   cursor: pointer;
@@ -15,14 +15,14 @@ button {
   transition: all 0.5s ease;
 }
 
-button:hover {
+.submit-button:hover {
   letter-spacing: 3px;
   background-color: #8C1007;
   color: hsl(0, 0%, 100%);
   box-shadow: #8C1007;
 }
 
-button:active {
+.submit-button:active {
   letter-spacing: 3px;
   background-color: #8C1007;
   color: hsl(0, 0%, 100%);
@@ -71,14 +71,55 @@ img {
   /* padding: 15px; */
   /* border: solid 2px black; */
   position: relative;
+  top: 160px;
+  transition: top 0.6s ease-in;
+}
+
+.input-container.active {
   top: 80px;
 }
 
 .results-container {
+  color: #FFF0C4;
+  text-align: center;
   padding: 15px;
   display: flex;
   gap: 10px;
   /* border: solid 2px blue; */
   align-items: center;
   justify-content: center;
+}
+
+.poster {
+  border: solid 2px #FFF0C4;
+  border-radius: 10px;
+}
+
+.poster-button {
+  padding: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 0;
+  background-color: #FFF0C4;
+  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+  letter-spacing: 1.5px;
+  /* text-transform: uppercase; */
+  font-size: 15px;
+  transition: all 0.5s ease;
+}
+
+.poster-button:hover {
+  letter-spacing: 3px;
+  background-color: #8C1007;
+  color: hsl(0, 0%, 100%);
+  box-shadow: #8C1007;
+}
+
+.poster-button:active {
+  letter-spacing: 3px;
+  background-color: #8C1007;
+  color: hsl(0, 0%, 100%);
+  box-shadow: #8C1007;
+  transform: translateY(10px);
+  transition: 100ms;
 }

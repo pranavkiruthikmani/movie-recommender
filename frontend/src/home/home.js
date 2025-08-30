@@ -9,6 +9,7 @@ const Home = () => {
     const [found, setFound] = useState(true);
     const [invalidInput, setInvalidInput] = useState(false);
     const [animKey, setAnimKey] = useState(0);
+    const [init, setInit] = useState(0);
 
     const get_movies = () => {
 
@@ -36,6 +37,7 @@ const Home = () => {
                 console.log("result")
                 console.log(data)
                 setAnimKey((prev) => prev + 1);
+                setInit((prev) => prev + 1);
 
             });
         } else {
@@ -54,9 +56,9 @@ const Home = () => {
         <div className="container">
             {found ? <h1></h1> : <h1> No Results </h1>}
             {invalidInput ? <h1>Invalid Input</h1> : <h1></h1>}
-            <div className="input-container">
+            <div className={`input-container ${init>0 ? 'active' : ''}`}>
                 <input type="textbox" placeholder="Movie" value={input} onChange={handle_input}/>
-                <button type="button" onClick={get_movies} className="">Submit</button>
+                <button type="button" onClick={get_movies} className="submit-button">Submit</button>
             </div>
             <AnimatePresence>
                 {movies.length > 0 && (
@@ -64,26 +66,21 @@ const Home = () => {
                         key={animKey}
                         initial={{y: 100, opacity: 0}}
                         animate={{y:0, opacity: 1}}
-                        // exit={{y:100, opacity:0}}
-                        transition={{duration: 0.4, ease: "easeIn"}}
+                        transition={{duration: 0.6, ease: "easeIn"}}
                         className="results-container"
                     >
                         {movies.map((movie, index) => {
                         if (index <= 5) {
-                            return <img className="poster" src={"https://image.tmdb.org/t/p/w500" + movie.poster_path} alt={movie.title}/>
+                            return(
+                                <button className="poster-button">
+                                    <img className="poster" src={"https://image.tmdb.org/t/p/w500" + movie.poster_path} alt={movie.title}/>
+                                </button>
+                            )
                         }
                         })}
                     </motion.div>
                 )}                    
             </AnimatePresence>
-            
-            {/* <div className="results-container">
-                {movies.map((movie, index) => {
-                    if (index <= 5) {
-                        return <img className="profile-photo" src={"https://image.tmdb.org/t/p/w500" + movie.poster_path} alt={"Carlie Anglemire"}/>
-                    }
-                    })}
-            </div> */}
         </div>
     )      
 }
