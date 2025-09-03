@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import '../App.css'
+import { useNavigate } from "react-router-dom";
 import {motion, AnimatePresence} from "framer-motion"
 
 const Home = () => {
@@ -10,6 +11,8 @@ const Home = () => {
     const [invalidInput, setInvalidInput] = useState(false);
     const [animKey, setAnimKey] = useState(0);
     const [init, setInit] = useState(0);
+
+    const navigate = useNavigate();
 
     const get_movies = () => {
 
@@ -48,8 +51,12 @@ const Home = () => {
         console.log(found)
     }
 
-    const handle_input = (event) => {
+    const handleInput = (event) => {
         setInput(event.target.value);
+    }
+
+    const handleClick = (movie) => {
+        navigate('/movie', {state: movie})
     }
 
     return(
@@ -57,7 +64,7 @@ const Home = () => {
             {found ? <h1></h1> : <h1> No Results </h1>}
             {invalidInput ? <h1>Invalid Input</h1> : <h1></h1>}
             <div className={`input-container ${init>0 ? 'active' : ''}`}>
-                <input type="textbox" placeholder="Movie" value={input} onChange={handle_input}/>
+                <input type="textbox" placeholder="Movie" value={input} onChange={handleInput}/>
                 <button type="button" onClick={get_movies} className="submit-button">Submit</button>
             </div>
             <AnimatePresence>
@@ -72,7 +79,7 @@ const Home = () => {
                         {movies.map((movie, index) => {
                         if (index <= 5) {
                             return(
-                                <button className="poster-button">
+                                <button className="poster-button" key={movie.id} onClick={() => handleClick(movie)}>
                                     <img className="poster" src={"https://image.tmdb.org/t/p/w500" + movie.poster_path} alt={movie.title}/>
                                 </button>
                             )

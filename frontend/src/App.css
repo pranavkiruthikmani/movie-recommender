@@ -90,11 +90,6 @@ img {
   justify-content: center;
 }
 
-.poster {
-  border: solid 2px #FFF0C4;
-  border-radius: 10px;
-}
-
 .poster-button {
   padding: 5px;
   border-radius: 10px;
