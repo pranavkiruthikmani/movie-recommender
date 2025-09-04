@@ -14,7 +14,15 @@ const Movie = () => {
 
    return(
     <div>
-        <img className="poster" src={"https://image.tmdb.org/t/p/w500" + movie.poster_path} alt={movie.title}/>
+        <div className="poster-container">
+            <img className="poster-main" src={"https://image.tmdb.org/t/p/w500" + movie.poster_path} alt={movie.title}/>
+        </div>   
+        <div className="button-container">
+            <button className="submit-button">
+                Recommend
+            </button>
+        </div>     
+        
     </div>
    )
 }
