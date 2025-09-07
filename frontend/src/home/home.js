@@ -63,7 +63,7 @@ const Home = () => {
         <div className="container">
             {found ? <h1></h1> : <h1> No Results </h1>}
             {invalidInput ? <h1>Invalid Input</h1> : <h1></h1>}
-            <div className={`input-container ${init>0 ? 'active' : ''}`}>
+            <div className={`input-container ${init > 0 ? 'active' : ''}`}>
                 <input type="textbox" placeholder="Movie" value={input} onChange={handleInput}/>
                 <button type="button" onClick={get_movies} className="submit-button">Submit</button>
             </div>
@@ -77,13 +77,13 @@ const Home = () => {
                         className="results-container"
                     >
                         {movies.map((movie, index) => {
-                        if (index <= 5) {
-                            return(
-                                <button className="poster-button" key={movie.id} onClick={() => handleClick(movie)}>
-                                    <img className="poster" src={"https://image.tmdb.org/t/p/w500" + movie.poster_path} alt={movie.title}/>
-                                </button>
-                            )
-                        }
+                            if (index <= 5) {
+                                return(
+                                    <button className="poster-button" key={movie.id} onClick={() => handleClick(movie)}>
+                                        <img className="poster" src={"https://image.tmdb.org/t/p/w500" + movie.poster_path} alt={movie.title}/>
+                                    </button>
+                                )
+                            }
                         })}
                     </motion.div>
                 )}                    

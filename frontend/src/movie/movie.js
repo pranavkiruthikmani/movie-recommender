@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import '../App.css'
 import { useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 const Movie = () => {
     const location = useLocation();
     const [movie, setMovie] = useState({});
     const [movieList, setMovieList] = useState([])
     const [ready, setReady] = useState(0)
+    const [final, setFinal] = useState(0)
 
     useEffect(() => {
         if (location.state) {
@@ -47,6 +50,7 @@ const Movie = () => {
 
             Promise.all(fetches).then(newList => {
                 setMovieList(newList)
+                setFinal(prev => prev + 1)
             })
 
         } else {
@@ -83,16 +87,55 @@ const Movie = () => {
    return(
     <div>
         <div className="poster-container">
-            <img className="poster-main" src={"https://image.tmdb.org/t/p/w500" + movie.poster_path} alt={movie.title}/>
+            <img className={`poster-main ${final > 0 ? `active` : ``}`} src={"https://image.tmdb.org/t/p/w500" + movie.poster_path} alt={movie.title}/>
         </div>   
-        <div className="button-container">
+        <div className={`button-container ${final > 0 ? `active` : ``}`}>
             <button className="submit-button" onClick={handleRecommend}>
                 Recommend
             </button>
-            <button onClick={showArray}>
+            {/* <button onClick={showArray}>
                 show
-            </button>
-        </div>     
+            </button> */}
+        </div> 
+        <AnimatePresence>
+            {final > 0 && (
+                <motion.div
+                        key={final}
+                        initial={{y: 100, opacity: 0}}
+                        animate={{y:0, opacity: 1}}
+                        transition={{duration: 0.6, ease: "easeIn"}}
+                        className="results-container"
+                    >
+                        {movieList.map((movie, index) => {
+                            if (index <= 5) {
+                                return (
+                                    <button className="poster-button" key={movie.id}>
+                                        <img className="poster" src={"https://image.tmdb.org/t/p/w500" + movie.poster_path} alt={movie.title} />
+                                    </button>
+                                )
+                            } else {
+                                return null;
+                            }
+                         })}
+                    </motion.div>
+            )}
+                
+        </AnimatePresence>    
+        {/* <div className="results-container">
+            {final > 0 && (
+                movieList.map((movie, index) => {
+                    if (index <= 5) {
+                        return (
+                            <button className="poster-button" key={movie.id}>
+                                <img className="poster" src={"https://image.tmdb.org/t/p/w500" + movie.poster_path} alt={movie.title} />
+                            </button>
+                        )
+                    } else {
+                        return null;
+                    }
+                }) 
+            )}
+        </div> */}
         
     </div>
    )

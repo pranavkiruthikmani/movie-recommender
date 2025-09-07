@@ -84,6 +84,7 @@ img {
   text-align: center;
   padding: 15px;
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   /* border: solid 2px blue; */
   align-items: center;
@@ -121,16 +122,31 @@ img {
 
 .poster-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 60vh;
-  border: solid 2px;
+  height: 50vh;
+  /* border: solid 2px; */
 }
 
 .poster-main {
-  width: 15vw;
-  position: relative;
-  top: 80px;
+  margin-top: 110px;
+  max-width: 100%;
+  min-width: 14%;
+  padding: 5px;
+  border-radius: 10px;
+  border: 0;
+  background-color: #FFF0C4;
+  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+  letter-spacing: 1.5px;
+  /* text-transform: uppercase; */
+  font-size: 15px;
+}
+
+.poster-main.active {
+  margin-top: 50px;
+  max-width: 100%;
+  min-width: 14%;
   padding: 5px;
   border-radius: 10px;
   border: 0;
@@ -146,5 +162,13 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 40px;  
+  padding-top: 60px;  
+}
+
+.button-container.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px; 
+  transition: all 0.5s ease;
 }
