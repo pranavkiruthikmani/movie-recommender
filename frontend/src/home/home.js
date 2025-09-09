@@ -67,27 +67,26 @@ const Home = () => {
                 <input type="textbox" placeholder="Movie" value={input} onChange={handleInput}/>
                 <button type="button" onClick={get_movies} className="submit-button">Submit</button>
             </div>
-            <AnimatePresence>
-                {movies.length > 0 && (
-                    <motion.div
-                        key={animKey}
-                        initial={{y: 100, opacity: 0}}
-                        animate={{y:0, opacity: 1}}
-                        transition={{duration: 0.6, ease: "easeIn"}}
-                        className="results-container"
-                    >
-                        {movies.map((movie, index) => {
-                            if (index <= 5) {
-                                return(
-                                    <button className="poster-button" key={movie.id} onClick={() => handleClick(movie)}>
-                                        <img className="poster" src={"https://image.tmdb.org/t/p/w500" + movie.poster_path} alt={movie.title}/>
-                                    </button>
-                                )
-                            }
-                        })}
-                    </motion.div>
-                )}                    
-            </AnimatePresence>
+            {movies.length > 0 && (
+                <motion.div
+                    key={animKey}
+                    initial={{y: 100, opacity: 0}}
+                    animate={{y:0, opacity: 1}}
+                    transition={{duration: 0.6, ease: "easeIn"}}
+                    className="results-container"
+                >
+                    {movies.map((movie, index) => {
+                        if (index <= 5) {
+                            return(
+                                <button className="poster-button" key={movie.id} onClick={() => handleClick(movie)}>
+                                    {/* {console.log(movie.id)} */}
+                                    <img className="poster" src={"https://image.tmdb.org/t/p/w500" + movie.poster_path} alt={movie.title}/>
+                                </button>
+                            )
+                        }
+                    })}
+                </motion.div>
+            )}                    
         </div>
     )      
 }

@@ -87,6 +87,7 @@ const Movie = () => {
    return(
     <div>
         <div className="poster-container">
+            {/* {console.log(movie.id)} */}
             <img className={`poster-main ${final > 0 ? `active` : ``}`} src={"https://image.tmdb.org/t/p/w500" + movie.poster_path} alt={movie.title}/>
         </div>   
         <div className={`button-container ${final > 0 ? `active` : ``}`}>
