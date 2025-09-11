@@ -39,7 +39,10 @@ indices = pd.Series(df_movie.index, index=df_movie['title']).drop_duplicates() #
 
 @app.route('/recommend/<movie>')
 def recommendations(movie):
-    index = indices[movie]
+    try:
+        index = indices[movie]
+    except:
+        return jsonify('Error')
 
     scores = list(enumerate(cosine_sim[index]))
     scores = sorted(scores, key= lambda x: x[1], reverse=True)

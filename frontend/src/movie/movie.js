@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, unstable_ViewTransition as ViewTransition, startTransition } from "react";
 import '../App.css'
 import { useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
@@ -88,7 +88,9 @@ const Movie = () => {
     <div>
         <div className="poster-container">
             {/* {console.log(movie.id)} */}
-            <img className={`poster-main ${final > 0 ? `active` : ``}`} src={"https://image.tmdb.org/t/p/w500" + movie.poster_path} alt={movie.title}/>
+            <ViewTransition name={movie.id}>
+                <img className={`poster-main ${final > 0 ? `active` : ``}`} src={"https://image.tmdb.org/t/p/w500" + movie.poster_path} alt={movie.title}/>
+            </ViewTransition>
         </div>   
         <div className={`button-container ${final > 0 ? `active` : ``}`}>
             <button className="submit-button" onClick={handleRecommend}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, unstable_ViewTransition as ViewTransition, startTransition } from "react";
 import '../App.css'
 import { useNavigate } from "react-router-dom";
 import {motion, AnimatePresence} from "framer-motion"
@@ -78,10 +78,13 @@ const Home = () => {
                     {movies.map((movie, index) => {
                         if (index <= 5) {
                             return(
-                                <button className="poster-button" key={movie.id} onClick={() => handleClick(movie)}>
-                                    {/* {console.log(movie.id)} */}
-                                    <img className="poster" src={"https://image.tmdb.org/t/p/w500" + movie.poster_path} alt={movie.title}/>
-                                </button>
+                                <ViewTransition name={movie.id}>
+                                    <button className="poster-button" key={movie.id} onClick={() => handleClick(movie)}>
+                                        {/* {console.log(movie.id)} */}
+                                        <img className="poster" src={"https://image.tmdb.org/t/p/w500" + movie.poster_path} alt={movie.title}/>
+                                    </button>
+                                </ViewTransition>
+                                
                             )
                         }
                     })}
