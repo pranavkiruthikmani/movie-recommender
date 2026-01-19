@@ -16,7 +16,7 @@ const Home = () => {
 
     const get_movies = () => {
 
-        console.log(input)
+        // console.log(input)
         if(input.trim().length > 0) {
             setInvalidInput(false);
             const input_movie = input.replaceAll(' ', '+')
@@ -28,7 +28,7 @@ const Home = () => {
                 setLoading(false);
 
                 if (data.some(item => item.hasOwnProperty('error'))) {
-                    console.log("Connection error")
+                    // console.log("Connection error")
                 }
 
                 if (data.length === 0) {
@@ -37,8 +37,8 @@ const Home = () => {
                     setFound(true);
                 }
 
-                console.log("result")
-                console.log(data)
+                // console.log("result")
+                // console.log(data)
                 setAnimKey((prev) => prev + 1);
                 setInit((prev) => prev + 1);
 
@@ -48,7 +48,7 @@ const Home = () => {
             setInvalidInput(true);
         }           
 
-        console.log(found)
+        // console.log(found)
     }
 
     const handleInput = (event) => {
@@ -78,12 +78,17 @@ const Home = () => {
                     {movies.map((movie, index) => {
                         if (index <= 5) {
                             return(
-                                <ViewTransition name={movie.id}>
+                                <motion.div
+                                    layoutId={`image-${movie.id}`}
+                                    key={movie.id}
+                                > 
+                                    {console.log(`image-${movie.id}`)}
                                     <button className="poster-button" key={movie.id} onClick={() => handleClick(movie)}>
                                         {/* {console.log(movie.id)} */}
                                         <img className="poster" src={"https://image.tmdb.org/t/p/w500" + movie.poster_path} alt={movie.title}/>
                                     </button>
-                                </ViewTransition>
+                                </motion.div>
+                                
                                 
                             )
                         }

@@ -87,10 +87,13 @@ const Movie = () => {
    return(
     <div>
         <div className="poster-container">
-            {/* {console.log(movie.id)} */}
-            <ViewTransition name={movie.id}>
+            <motion.div
+                layoutId={`image-${movie.id}`}
+                key={movie.id}
+            >
+                {console.log(`image-${movie.id}`)}
                 <img className={`poster-main ${final > 0 ? `active` : ``}`} src={"https://image.tmdb.org/t/p/w500" + movie.poster_path} alt={movie.title}/>
-            </ViewTransition>
+            </motion.div>
         </div>   
         <div className={`button-container ${final > 0 ? `active` : ``}`}>
             <button className="submit-button" onClick={handleRecommend}>

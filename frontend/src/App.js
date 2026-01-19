@@ -3,7 +3,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from './home/home';
 import Movie from './movie/movie';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 function AnimatedRoutes () {
   const location = useLocation();
@@ -11,10 +11,33 @@ function AnimatedRoutes () {
   return (
     <AnimatePresence mode='wait' initial={false}>
       <Routes location={location} key={location.pathname}>
-        <Route index element={<Home />} />
-        <Route path='/movie' element={<Movie />} />
+        <Route index element={
+          //<PageWrapper>
+            <Home />
+          //</PageWrapper>          
+          } 
+        />
+        <Route path='/movie' element={
+          // <PageWrapper>
+            <Movie />
+          // </PageWrapper>          
+          } 
+        />
       </Routes>
     </AnimatePresence>
+  )
+}
+
+function PageWrapper ({children}) {
+  return(
+    <motion.div
+      initial={{opacity: 0, y: 20}}
+      animate={{opacity: 1, y: 0}}
+      exit={{opacity: 0, y: -20}}
+      transition={{duration: 0.5}}
+    >
+      {children}
+    </motion.div>
   )
 }
 
