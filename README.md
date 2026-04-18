@@ -1,5 +1,5 @@
 # movie-recommender
-A full-stack web application designed to provide personalized movie suggestions based on user input. This project bridges a machine learning backend with a modern, animated frontend to create a seamless user experience.
+A full stack web application designed to provide personalized movie suggestions based on user input. This project bridges a machine learning backend with a modern, animated frontend to create a seamless user experience.
 
 ****Installation & Setup****
 1. Clone the repository
