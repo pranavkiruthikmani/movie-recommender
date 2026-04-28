@@ -43,7 +43,7 @@ function PageWrapper ({children}) {
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/movie-recommender">
       <AnimatedRoutes />
     </BrowserRouter>
   );
