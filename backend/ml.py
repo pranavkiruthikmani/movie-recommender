@@ -11,12 +11,17 @@ from urllib3.util.retry import Retry
 import requests
 from flask import Flask, jsonify
 from flask_cors import CORS
+import os
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 CORS(app)
 
+load_dotenv()
+token = os.environ.get('TMDB_BEARER_TOKEN')
+
 reqheaders = {
-    "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyNDI0NGMxZDU3MDBkMDFhMjU0YTIxMTNiNWJhZTYxOCIsIm5iZiI6MTc1NDQ3MjUzNC43Mjk5OTk4LCJzdWIiOiI2ODkzMjA1NmQxOGI5OWEzYjVmM2YyMjIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.4jecF26Vd1wII79cLjnB4DcuKSf72MEhXBr51pkWRfc"
+    "Authorization": f"Bearer {token}"
 }
 
 session = requests.Session()
@@ -27,7 +32,10 @@ retries = Retry(
 )
 session.mount("https://", HTTPAdapter(max_retries=retries))
 
-df_movie = pd.read_csv('/root/movie/backend/tmdb_5000_movies.csv')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+csv_path = os.path.join(BASE_DIR, 'tmdb_5000_movies.csv')
+
+df_movie = pd.read_csv(csv_path)
 
 tfidf = TfidfVectorizer(stop_words='english') #Remove stop words
 df_movie['overview'] = df_movie['overview'].fillna('')
@@ -75,5 +83,6 @@ def search_movie(movie):
 
 
 if __name__ == '__main__':
-    app.run()
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
 
