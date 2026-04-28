@@ -9,3 +9,5 @@ A full stack web application designed to provide personalized movie suggestions 
     Navigate to the frontend folder and run `npm install` to set up React and Framer Motion dependencies.
 4.  **Run Application**: 
     Start the backend server followed by the React development server.
+
+Link to site: https://pranavkiruthikmani.github.io/movie-recommender/
