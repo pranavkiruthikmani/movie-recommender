@@ -1,2 +1,5 @@
 backend/tmdb_5000_movies.csv
 TMDB_movie_dataset_v11.csv
+
+backend/.env
+backend/venv/
