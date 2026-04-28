@@ -18,7 +18,7 @@ const Movie = () => {
     }, [location.state])
 
     const handleRecommend = () => {
-        const link = 'http://127.0.0.1:5000/recommend/' + movie.title;
+        const link = 'https://movie-recommender-wcpv.onrender.com/recommend/' + movie.title;
         fetch(link)
         .then(response => response.json())
         .then(data => {
@@ -35,7 +35,7 @@ const Movie = () => {
             
             const fetches = movieList.map(item => {
                 const title = Object.values(item)[0].replaceAll(' ', '+')                
-                const link = 'http://127.0.0.1:5000/search/' + title
+                const link = 'https://movie-recommender-wcpv.onrender.com/search/' + title
 
                 return (
                     fetch(link)
@@ -60,7 +60,7 @@ const Movie = () => {
         //     for (let index = 0; index < movieList.length; index++) {
         //         const title = Object.values(movieList[index])[0].replaceAll(' ', '+')
                 
-        //         const link = 'http://127.0.0.1:5000/search/' + title
+        //         const link = 'https://movie-recommender-wcpv.onrender.com/search/' + title
         //         fetch(link)
         //         .then(response => response.json())
         //         .then(data => {
