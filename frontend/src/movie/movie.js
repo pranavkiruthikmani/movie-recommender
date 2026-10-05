@@ -18,7 +18,7 @@ const Movie = () => {
     }, [location.state])
 
     const handleRecommend = () => {
-        const link = 'http://127.0.0.1:5000/recommend/' + movie.title;
+        const link = 'https://pranavkiruthikmani.pythonanywhere.com/recommend/' + movie.title;
         fetch(link)
         .then(response => response.json())
         .then(data => {
@@ -31,12 +31,16 @@ const Movie = () => {
     useEffect(() => {
         console.log(movieList)
 
+        if (movieList === 'Error') {
+            alert("Sorry, this movie is not in our dataset to generate recommendations!");
+            return;
+        }
+
         if (movieList.length > 0) {
             
             const fetches = movieList.map(item => {
                 const title = Object.values(item)[0].replaceAll(' ', '+')                
-                const link = 'https://movie-recommender-wcpv.onrender.com/search/' + title
-
+                const link = 'https://pranavkiruthikmani.pythonanywhere.com/search/' + title
                 return (
                     fetch(link)
                     .then(response => response.json())
