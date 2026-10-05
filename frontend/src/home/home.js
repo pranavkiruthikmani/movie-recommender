@@ -20,14 +20,14 @@ const Home = () => {
         if(input.trim().length > 0) {
             setInvalidInput(false);
             const input_movie = input.replaceAll(' ', '+')
-            const link = 'https://movie-recommender-wcpv.onrender.com/search/' + input_movie
+            const link = 'http://127.0.0.1:5000/search/' + input_movie
             fetch(link)
             .then(response => response.json())
             .then(data => {
                 setMovies(data);
                 setLoading(false);
 
-                if (data.some(item => item.hasOwnProperty('error'))) {
+                if (Array.isArray(data) && data.some(item => item.hasOwnProperty('error'))) {
                     // console.log("Connection error")
                 }
 

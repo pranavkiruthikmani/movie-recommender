@@ -18,7 +18,7 @@ const Movie = () => {
     }, [location.state])
 
     const handleRecommend = () => {
-        const link = 'https://movie-recommender-wcpv.onrender.com/recommend/' + movie.title;
+        const link = 'http://127.0.0.1:5000/recommend/' + movie.title;
         fetch(link)
         .then(response => response.json())
         .then(data => {
