@@ -8,6 +8,7 @@ A full stack, machine learning-powered web application that provides personalize
 
 This project bridges a data science backend with a modern, animated React frontend to create a seamless and responsive user experience. 
 
+Link: https://pranavkiruthikmani.github.io/movie-recommender/
 ---
 
 ## Features
